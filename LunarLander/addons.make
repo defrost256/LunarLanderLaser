@@ -1,0 +1,3 @@
+ofxNetwork
+ofxVectorGraphics
+ofxBox2d
