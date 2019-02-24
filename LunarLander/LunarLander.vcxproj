@@ -22,6 +22,7 @@
     <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LunarLander</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -32,7 +33,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -70,6 +71,8 @@
     <TargetName>$(ProjectName)_debug</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
+    <IncludePath>D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\PROG\CPP\openFrameworksLatest\libs\boost\lib\vs\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>bin\</OutDir>
@@ -77,6 +80,7 @@
     <TargetName>$(ProjectName)_debug</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
+    <IncludePath>D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>bin\</OutDir>
@@ -95,25 +99,19 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\src;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\lib\vs\Win32\libxml2.lib;D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\lib\vs\Win32\svgtiny.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
     </PostBuildEvent>
@@ -125,17 +123,11 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\src;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -143,8 +135,9 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\lib\vs\x64\libxml2.lib;D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\lib\vs\x64\svgtiny.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/LTCG:OFF %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
     </PostBuildEvent>
@@ -155,17 +148,11 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\src;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -176,8 +163,8 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\lib\vs\Win32\libxml2.lib;D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\lib\vs\Win32\svgtiny.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
     </PostBuildEvent>
@@ -188,17 +175,11 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;
-D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PROG\CPP\openFrameworksLatest\addons\ofxNetwork\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\src;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Collision\Shapes;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Common;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Rope;D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\src;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml;
+D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -208,8 +189,8 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\libxml2\lib\vs\x64\libxml2.lib;D:\PROG\CPP\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\lib\vs\x64\svgtiny.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
     </PostBuildEvent>
@@ -277,8 +258,12 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
     <ClCompile Include="..\..\..\CPP\openFrameworksLatest\addons\ofxNetwork\src\ofxUDPManager.cpp" />
     <ClCompile Include="..\..\..\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs\CreEPS.cpp" />
     <ClCompile Include="..\..\..\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp" />
+    <ClCompile Include="..\..\openFrameworksLatest\addons\ofxSvg\src\ofxSvg.cpp" />
+    <ClCompile Include="src\ContactListeners.cpp" />
+    <ClCompile Include="src\Lander.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\CPP\openFrameworksLatest\addons\ofxBox2d\libs\Box2D\Box2D.h" />
@@ -356,7 +341,60 @@ D:\PROG\CPP\openFrameworksLatest\addons\ofxBox2d\libs\triangle;%(AdditionalInclu
     <ClInclude Include="..\..\..\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs\CreEPS.hpp" />
     <ClInclude Include="..\..\..\CPP\openFrameworksLatest\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp" />
     <ClInclude Include="..\..\..\CPP\openFrameworksLatest\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\c14n.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\catalog.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\chvalid.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\debugXML.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\dict.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\DOCBparser.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\encoding.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\entities.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\globals.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\hash.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\HTMLparser.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\HTMLtree.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\list.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\nanoftp.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\nanohttp.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\parser.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\parserInternals.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\pattern.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\relaxng.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\SAX.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\SAX2.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\schemasInternals.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\schematron.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\threads.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\tree.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\uri.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\valid.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xinclude.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xlink.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlautomata.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlerror.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlexports.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlIO.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlmemory.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlmodule.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlreader.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlregexp.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlsave.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlschemas.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlschemastypes.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlstring.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlunicode.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlversion.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xmlwriter.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xpath.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xpathInternals.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\libxml2\include\libxml\xpointer.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\libs\svgtiny\include\svgtiny.h" />
+    <ClInclude Include="..\..\openFrameworksLatest\addons\ofxSvg\src\ofxSvg.h" />
+    <ClInclude Include="Box2dDebugRenderer.h" />
+    <ClInclude Include="src\ContactListeners.h" />
+    <ClInclude Include="src\Lander.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\Surface.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
