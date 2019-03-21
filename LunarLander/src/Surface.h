@@ -40,6 +40,8 @@ public:
 	void GenerateSurface(SurfaceGenerationParams params);
 	void SetScreenSize(int screenWidth, int screenHeight);
 	void SetPhysicalParams(float friction, float bounce);
+	b2Body* GetBody();
+	b2Body* GetLandingSpotBody();
 	void Draw();
 	~Surface();
 

@@ -14,10 +14,6 @@ Surface::Surface(ofxBox2d* world)
 	goalTriggerBodyDef.type = b2BodyType::b2_staticBody;
 	goalTriggerBodyDef.active = true;
 	goalTriggerBody = world->getWorld()->CreateBody(&goalTriggerBodyDef);
-
-	DebugContactListener *listener = new DebugContactListener();
-	listener->SetBodyFilter(physicsBody);
-	LunarLanderConatactManager::Get()->AddCallback(listener, ContactCallbackFlag::BeginContact);
 }
 
 void Surface::GenerateSurface(SurfaceGenerationParams params)
@@ -148,4 +144,14 @@ b2Fixture* Surface::CreateTriggerBox(ofVec2f size, ofVec2f center)
 	b2Fixture* fixture = goalTriggerBody->CreateFixture(&def);
 	ofLogNotice("Surface") << "Creating trigger box \n\tfrom\tS:" << ofToString(size) << "\tC:" << ofToString(center) << "\n\tto:\tS:(" << ofToString(b2size.x) << "," << ofToString(b2size.y) << ")\tC:(" << ofToString(b2center.x) << "," << ofToString(b2center.y) << ")\n";
 	return fixture;
+}
+
+b2Body* Surface::GetBody()
+{
+	return physicsBody;
+}
+
+b2Body* Surface::GetLandingSpotBody()
+{
+	return goalTriggerBody;
 }

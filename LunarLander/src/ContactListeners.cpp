@@ -2,7 +2,7 @@
 
 LunarLanderConatactManager* LunarLanderConatactManager::instance = nullptr;
 
-LunarLanderConatactManager * LunarLanderConatactManager::Get()
+LunarLanderConatactManager* LunarLanderConatactManager::Get()
 {
 	if (!instance)
 	{
@@ -82,6 +82,8 @@ bool LunarLanderConatactManager::isFiltered(LunarLanderContactListener * listene
 	b2Fixture* fixtureB = contact->GetFixtureB();
 	if (filterFlag & ContactFilterFlags::FilterBody)
 		return fixtureA->GetBody() == listener->filterBody || fixtureB->GetBody() == listener->filterBody;
+	if (filterFlag & ContactFilterFlags::FilterFixture)
+		return fixtureA == listener->filterFixture || fixtureB == listener->filterFixture;
 	return true;
 }
 
@@ -105,6 +107,41 @@ void DebugContactListener::PostSolve(b2Contact * contact, const b2ContactImpulse
 	ofLogNotice("ContactListener") << "PostSolve";
 }
 
+LandingSpotContactListener::LandingSpotContactListener(ofApp* _app, b2Body* _lander)
+{
+	app = _app;
+	lander = _lander;
+}
+
+void LandingSpotContactListener::BeginContact(b2Contact* contact)
+{
+	if(contact->GetFixtureA()->GetBody() == lander || contact->GetFixtureB()->GetBody() == lander)
+		app->StartLanding();
+}
+
+void LandingSpotContactListener::EndContact(b2Contact* contact)
+{
+	if(contact->GetFixtureA()->GetBody() == lander || contact->GetFixtureB()->GetBody() == lander)
+		app->EndLanding();
+}
+
+void LandingSpotContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}
+void LandingSpotContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse){}
+
+LanderCrashContactListener::LanderCrashContactListener(Lander* lander)
+{
+	this->lander = lander;
+}
+
+void LanderCrashContactListener::BeginContact(b2Contact* contact){}
+void LanderCrashContactListener::EndContact(b2Contact* contact){}
+void LanderCrashContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){}
+
+void LanderCrashContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+{
+	ofLogNotice("Crash") << impulse->normalImpulses;
+}
+
 void LunarLanderContactListener::SetBodyFilter(b2Body * body)
 {
 	filterBody = body;
@@ -114,6 +151,17 @@ void LunarLanderContactListener::SetBodyFilter(b2Body * body)
 void LunarLanderContactListener::ResetBodyFilter()
 {
 	ContactFilterFlag &= ~ContactFilterFlags::FilterBody;
+}
+
+void LunarLanderContactListener::SetFixtureFilter(b2Fixture* fixture)
+{
+	filterFixture = fixture;
+	ContactFilterFlag |= ContactFilterFlags::FilterFixture;
+}
+
+void LunarLanderContactListener::ResetFixtureFilter()
+{
+	ContactFilterFlag &= ~ContactFilterFlags::FilterFixture;
 }
 
 void LunarLanderContactListener::ResetFilters()

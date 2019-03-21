@@ -1,14 +1,18 @@
 #include "Lander.h"
 
-Lander::Lander(ofxBox2d* world, LanderParams params)
+Lander::Lander(ofxBox2d* world, LanderParams params, ofVec2f topBoxSize, ofVec2f bottomBoxSize, std::string svgFileName)
 {
 	this->params = params;
+	this->topBoxSize = topBoxSize;
+	this->bottomBoxSize = bottomBoxSize;
+	this->landerSvg = svgFileName;
+
 
 	//Create svg File
 	ofxSVG svgHandler;
 	std::string svgFilePath = ofFilePath::join(
 		ofFilePath::join(ofFilePath::getCurrentExeDir(), svgSourceFolder),
-		params.landerSvg + ".svg");
+		landerSvg + ".svg");
 	ofFile svgFile = ofFile(svgFilePath, ofFile::ReadOnly, false);
 	if (!svgFile.exists())
 	{
@@ -42,7 +46,7 @@ Lander::Lander(ofxBox2d* world, LanderParams params)
 	//Create physical body
 	physicsBodyDef.type = b2BodyType::b2_dynamicBody;
 	physicsBodyDef.allowSleep = false;
-	physicsBodyDef.active = true;
+	physicsBodyDef.active = false;
 	physicsBodyDef.angularDamping = params.angularDamping;
 	physicsBodyDef.linearDamping = params.linearDamping;
 	physicsBodyDef.position = b2Vec2(params.startingPos.x / OFX_BOX2D_SCALE, params.startingPos.y / OFX_BOX2D_SCALE);
@@ -50,20 +54,20 @@ Lander::Lander(ofxBox2d* world, LanderParams params)
 	physicsBody = world->getWorld()->CreateBody(&physicsBodyDef);
 
 	//Create collision shapes
-	topShape = new b2PolygonShape();
-	bottomShape = new b2PolygonShape();
+	b2PolygonShape topShape;
+	b2PolygonShape bottomShape;
 
-	ofVec2f halfSize = params.topBoxSize / 2.f;
-	topShape->SetAsBox(halfSize.x / OFX_BOX2D_SCALE, halfSize.y / OFX_BOX2D_SCALE, b2Vec2(0.f, halfSize.y / OFX_BOX2D_SCALE), 0.f);
-	halfSize = params.bottomBoxSize / 2.f;
-	bottomShape->SetAsBox(halfSize.x / OFX_BOX2D_SCALE, halfSize.y / OFX_BOX2D_SCALE, b2Vec2(0.f, halfSize.y / OFX_BOX2D_SCALE), 0.f);
+	ofVec2f halfSize = topBoxSize / 2.f;
+	topShape.SetAsBox(halfSize.x / OFX_BOX2D_SCALE, halfSize.y / OFX_BOX2D_SCALE, b2Vec2(0.f, halfSize.y / OFX_BOX2D_SCALE), 0.f);
+	halfSize = bottomBoxSize / 2.f;
+	bottomShape.SetAsBox(halfSize.x / OFX_BOX2D_SCALE, halfSize.y / OFX_BOX2D_SCALE, b2Vec2(0.f, halfSize.y / OFX_BOX2D_SCALE), 0.f);
 
 	//Initialize fixtures
-	topFixtureDef.shape = topShape;
+	topFixtureDef.shape = &topShape;
 	topFixtureDef.density = params.density;
 	topFixtureDef.friction = params.friction;
 	topFixtureDef.restitution = params.bounce;
-	bottomFixtureDef.shape = bottomShape;
+	bottomFixtureDef.shape = &bottomShape;
 	bottomFixtureDef.density = params.density;
 	bottomFixtureDef.friction = params.friction;
 	bottomFixtureDef.restitution = params.bounce;
@@ -71,10 +75,16 @@ Lander::Lander(ofxBox2d* world, LanderParams params)
 	//Create fixtures
 	topFixture = physicsBody->CreateFixture(&topFixtureDef);
 	bottomFixture = physicsBody->CreateFixture(&bottomFixtureDef);
+
+	crashListener = new LanderCrashContactListener(this);
+	crashListener->SetFixtureFilter(topFixture);
+	LunarLanderConatactManager::Get()->AddCallback(crashListener, ContactCallbackFlag::PostSolve);
 }
 
 void Lander::Draw()
 {
+	if(!isActive)
+		return;
 	ofPushStyle();
 	ofPushMatrix();
 	//Apply physics transform to graphics
@@ -121,20 +131,45 @@ void Lander::SetScale(float scale)
 	physicsBody->DestroyFixture(topFixture);
 
 	//Create new collision shapes 
-	topShape = new b2PolygonShape();
-	bottomShape = new b2PolygonShape();
+	b2PolygonShape topShape;
+	b2PolygonShape bottomShape;
 
-	ofVec2f halfSize = params.topBoxSize * scale / OFX_BOX2D_SCALE / 2.f;
-	topShape->SetAsBox(halfSize.x, halfSize.y, b2Vec2(0, halfSize.y), 0.f);
-	halfSize = params.bottomBoxSize * scale / OFX_BOX2D_SCALE / 2.f;
-	bottomShape->SetAsBox(halfSize.x, halfSize.y, b2Vec2(0, -halfSize.y), 0.f);
+	ofVec2f halfSize = topBoxSize * scale / OFX_BOX2D_SCALE / 2.f;
+	topShape.SetAsBox(halfSize.x, halfSize.y, b2Vec2(0, halfSize.y), 0.f);
+	halfSize = bottomBoxSize * scale / OFX_BOX2D_SCALE / 2.f;
+	bottomShape.SetAsBox(halfSize.x, halfSize.y, b2Vec2(0, -halfSize.y), 0.f);
 
 	//Create new fixtures
-	topFixtureDef.shape = topShape;
-	bottomFixtureDef.shape = bottomShape;
+	topFixtureDef.shape = &topShape;
+	bottomFixtureDef.shape = &bottomShape;
 
 	topFixture = physicsBody->CreateFixture(&topFixtureDef);
 	bottomFixture = physicsBody->CreateFixture(&bottomFixtureDef);
+}
+
+void Lander::Start(LanderParams params)
+{
+	ofLogNotice("Lander") << "Start";
+	this->params = params;
+	topFixture->SetDensity(params.density);
+	topFixture->SetFriction(params.friction);
+	topFixture->SetRestitution(params.bounce);
+	bottomFixture->SetDensity(params.density);
+	bottomFixture->SetFriction(params.friction);
+	bottomFixture->SetRestitution(params.bounce);
+	physicsBody->SetLinearDamping(params.linearDamping);
+	physicsBody->SetAngularDamping(params.angularDamping);
+	physicsBody->SetTransform(screenPtToWorldPt(params.startingPos), 0.f);
+	physicsBody->SetLinearVelocity(b2Vec2(params.startVelocity, 0.f));
+	physicsBody->SetActive(true);
+	currentThrusterStrength = 0.f;
+	isActive = true;
+}
+
+void Lander::Sleep()
+{
+	physicsBody->SetActive(false);
+	isActive = false;
 }
 
 void Lander::SetThrusterStrength(float strength)
@@ -152,6 +187,18 @@ void Lander::SetRotationRate(float rotation)
 	currentRotationRate = rotation;
 }
 
+void Lander::Reset()
+{
+	physicsBody->SetActive(false);
+	physicsBody->SetTransform(
+		b2Vec2(params.startingPos.x / OFX_BOX2D_SCALE, params.startingPos.y / OFX_BOX2D_SCALE),
+		0.f
+	);
+	physicsBody->SetLinearVelocity(b2Vec2(params.startVelocity, 0.f));
+	currentThrusterStrength = 0.f;
+	physicsBody->SetActive(true);
+}
+
 ofVec2f Lander::GetPosition()
 {
 	return currentPosition;
@@ -167,3 +214,13 @@ float Lander::GetRotationDeg()
 	return RAD_TO_DEG * currentRotationRad;
 }
 
+bool Lander::IsStationary(float tolerance)
+{
+	float vel = physicsBody->GetLinearVelocity().Length();
+	return vel < tolerance && vel > -tolerance;
+}
+
+b2Body* Lander::GetBody()
+{
+	return physicsBody;
+}

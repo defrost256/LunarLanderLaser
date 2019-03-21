@@ -23,6 +23,11 @@ class ofApp : public ofBaseApp{
 
 	bool drawDebug = false;
 
+	enum GameState{ Flying, Landing, Landed };
+	GameState gameState;
+
+	float LandingTimer;
+
 	public:
 		void setup();
 		void update();
@@ -41,4 +46,10 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		bool isKeyDown(int key);
+		void HandleControls();
+
+
+		bool CheckWin();
+		void StartLanding();
+		void EndLanding();
 };
